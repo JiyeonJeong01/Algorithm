@@ -17,15 +17,10 @@ int main(void)
 		if (!decimal[i]) continue;
 
 		for (int j = i * 2; j <= m; j += i)
-		{
 			decimal[j] = false;
-		}
 	}
 
 	for (int i = n; i <= m; ++i)
-	{
 		if (decimal[i]) cout << i << "\n";
-		// /*if (decimal[i])*/ cout << decimal[i] << "\n";
-	}
 	return 0;
 }
