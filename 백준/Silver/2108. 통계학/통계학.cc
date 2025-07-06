@@ -21,13 +21,9 @@ int main(void)
 
 		it = mp.find(tmp);
 		if (it != mp.end())
-		{	
 			mp[tmp] = mp[tmp]+1;
-		}
 		else 
-		{
 			mp.insert({tmp, 1});
-		}
 		v.push_back(tmp);
 
 		sum +=  tmp;
@@ -47,9 +43,7 @@ int main(void)
 	for (it = mp.begin(); it != mp.end(); it++)
 	{
 		if (it->second > modeCnt)
-		{
 			modeCnt = it->second;
-		}
 	}
 
 	bool isFirst = true;
@@ -58,11 +52,13 @@ int main(void)
 	{
 		if (it->second == modeCnt)
 		{
-			if (isFirst) {
+			if (isFirst)
+            {
 				isFirst = false;
 				mode = it->first;
 			}
-			else {
+			else
+            {
 				mode = it->first;
 				break;
 			}
