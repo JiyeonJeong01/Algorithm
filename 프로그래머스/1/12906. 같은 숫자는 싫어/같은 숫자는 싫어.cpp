@@ -6,19 +6,10 @@ vector<int> solution(vector<int> arr)
 {
     vector<int> answer;
     
-    stack<int> stk;
-    stk.push(arr[arr.size()-1]);
-    
-    for (int i = arr.size() - 2; i >= 0; --i)
+    for (int i = 0; i < arr.size(); ++i)
     {
-        if (stk.top() != arr[i])
-            stk.push(arr[i]);
-    }
-
-    while (stk.empty() == false)
-    {
-        answer.push_back(stk.top());
-        stk.pop();
+        if (answer.empty() || answer.back() != arr[i])
+            answer.push_back(arr[i]);
     }
     
     return answer;
