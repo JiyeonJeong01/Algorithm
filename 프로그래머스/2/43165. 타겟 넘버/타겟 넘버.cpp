@@ -2,23 +2,17 @@
 
 using namespace std;
 
-void CheckSum(const vector<int>& numbers, int target, int sum, int idx, int& answer)
+int CheckSum(const vector<int>& numbers, int target, int sum, int idx)
 {
     if (idx == numbers.size())
-    {
-        if (sum == target)
-            answer++;
-        return;
-    }
+        return sum == target;
     
-    CheckSum(numbers, target, sum + numbers[idx], idx + 1, answer);
-    CheckSum(numbers, target, sum - numbers[idx], idx + 1, answer);
+    return CheckSum(numbers, target, sum + numbers[idx], idx + 1)
+        + CheckSum(numbers, target, sum - numbers[idx], idx + 1);
 }
 
 int solution(vector<int> numbers, int target) {
-    int answer = 0;
     int sum = 0;
-    CheckSum(numbers, target, sum, 0, answer);
     
-    return answer;
+    return CheckSum(numbers, target, sum, 0);
 }
