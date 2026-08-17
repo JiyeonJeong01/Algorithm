@@ -1,46 +1,49 @@
-#include <bits/stdc++.h>
+#include "bits/stdc++.h"
 
 using namespace std;
 
-int DFS(const vector<vector<string>>& tickets, 
-       vector<bool>& visited,
-       vector<string>& answer, 
-       const string& curr,
-       int cnt)
+vector<vector<string>> gTickets;
+vector<bool> gVisited;
+vector<string> gAnswer;
+int gTicketCount;
+
+bool DFS(int count, const string& curr)
 {
-    if (cnt == visited.size())
+    if (count >= gTicketCount)
         return true;
     
-    for (int i = 0; i < tickets.size(); ++i)
+    // 방문
+    for (int i = 0; i < gTicketCount; ++i)
     {
-        if (visited[i]) 
+        if (gVisited[i])
+            continue;
+        if (gTickets[i][0] != curr)
             continue;
         
-        if (tickets[i][0] != curr) // 출발지가 현재 위치가 아니라면 continue
-            continue;
+        gVisited[i] = true;
+        gAnswer.push_back(gTickets[i][1]);
         
-        visited[i] = true;
-        answer.push_back(tickets[i][1]);
-        
-        if (DFS(tickets, visited, answer, tickets[i][1], cnt + 1))
+        if (DFS(count + 1, gTickets[i][1]))
             return true;
         
-        answer.pop_back();
-        visited[i] = false;
+        // 정답이 아닌 경우
+        gVisited[i] = false;
+        gAnswer.pop_back();
     }
     
     return false;
 }
 
 vector<string> solution(vector<vector<string>> tickets) {
-    vector<string> answer;
-    vector<bool> visited(tickets.size(), false);
-
-    // 출발지 비교 후, 같다면 도착지 비교하여 오름차순 정렬
-    sort(tickets.begin(), tickets.end());
     
-    answer.push_back("ICN");
-    DFS(tickets, visited, answer, "ICN", 0);
+    gTickets = tickets;
+    gTicketCount = tickets.size();
+    gVisited = vector<bool>(gTicketCount, false);
     
-    return answer;
+    sort(gTickets.begin(), gTickets.end());
+    gAnswer.push_back("ICN");
+    
+    DFS(0, "ICN");
+    
+    return gAnswer;
 }
